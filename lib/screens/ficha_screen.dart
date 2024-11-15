@@ -23,6 +23,7 @@ class _CreateFichaScreenState extends State<CreateFichaScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Crear Ficha"),
+        backgroundColor: Color(0xFF7165D6),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -31,7 +32,13 @@ class _CreateFichaScreenState extends State<CreateFichaScreen> {
           child: Column(
             children: [
               TextFormField(
-                decoration: InputDecoration(labelText: "CI Paciente"),
+                decoration: InputDecoration(
+                  labelText: "CI Paciente",
+                  labelStyle: TextStyle(color: Colors.black54),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -43,8 +50,15 @@ class _CreateFichaScreenState extends State<CreateFichaScreen> {
                   ciPaciente = int.tryParse(value!);
                 },
               ),
+              SizedBox(height: 15),
               TextFormField(
-                decoration: InputDecoration(labelText: "CI Médico"),
+                decoration: InputDecoration(
+                  labelText: "CI Médico",
+                  labelStyle: TextStyle(color: Colors.black54),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -56,8 +70,15 @@ class _CreateFichaScreenState extends State<CreateFichaScreen> {
                   ciMedico = int.tryParse(value!);
                 },
               ),
+              SizedBox(height: 15),
               TextFormField(
-                decoration: InputDecoration(labelText: "ID Especialidad"),
+                decoration: InputDecoration(
+                  labelText: "ID Especialidad",
+                  labelStyle: TextStyle(color: Colors.black54),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -69,8 +90,15 @@ class _CreateFichaScreenState extends State<CreateFichaScreen> {
                   idEspecialidad = int.tryParse(value!);
                 },
               ),
+              SizedBox(height: 15),
               TextFormField(
-                decoration: InputDecoration(labelText: "Fecha de Emisión (YYYY-MM-DD)"),
+                decoration: InputDecoration(
+                  labelText: "Fecha de Emisión (YYYY-MM-DD)",
+                  labelStyle: TextStyle(color: Colors.black54),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor ingrese la fecha de emisión';
@@ -81,8 +109,15 @@ class _CreateFichaScreenState extends State<CreateFichaScreen> {
                   fechaEmision = DateTime.tryParse(value!);
                 },
               ),
+              SizedBox(height: 15),
               TextFormField(
-                decoration: InputDecoration(labelText: "Fecha de Atención (YYYY-MM-DD)"),
+                decoration: InputDecoration(
+                  labelText: "Fecha de Atención (YYYY-MM-DD)",
+                  labelStyle: TextStyle(color: Colors.black54),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor ingrese la fecha de atención';
@@ -93,8 +128,15 @@ class _CreateFichaScreenState extends State<CreateFichaScreen> {
                   fechaAtencion = DateTime.tryParse(value!);
                 },
               ),
+              SizedBox(height: 15),
               TextFormField(
-                decoration: InputDecoration(labelText: "Hora de Atención (HH:mm)"),
+                decoration: InputDecoration(
+                  labelText: "Hora de Atención (HH:mm)",
+                  labelStyle: TextStyle(color: Colors.black54),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor ingrese la hora de atención';
@@ -113,7 +155,21 @@ class _CreateFichaScreenState extends State<CreateFichaScreen> {
                     _createFicha();
                   }
                 },
-                child: Text("Crear Ficha"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF7165D6),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 25),
+                ),
+                child: Text(
+                  "Crear Ficha",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
           ),
@@ -123,7 +179,12 @@ class _CreateFichaScreenState extends State<CreateFichaScreen> {
   }
 
   Future<void> _createFicha() async {
-    if (fechaEmision != null && fechaAtencion != null && horaAtencion != null && ciPaciente != null && ciMedico != null && idEspecialidad != null) {
+    if (fechaEmision != null &&
+        fechaAtencion != null &&
+        horaAtencion != null &&
+        ciPaciente != null &&
+        ciMedico != null &&
+        idEspecialidad != null) {
       FichaDto fichaDto = FichaDto(
         fechaEmision: fechaEmision!,
         fechaAtencion: fechaAtencion!,
@@ -136,10 +197,10 @@ class _CreateFichaScreenState extends State<CreateFichaScreen> {
       try {
         await _fichaService.createFicha(fichaDto);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Ficha creada exitosamente")));
-    Navigator.pop(context); // Regresar a la pantalla anterior
-    } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error al crear la ficha: $e")));
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error al crear la ficha: $e")));
+      }
     }
-  }
   }
 }
