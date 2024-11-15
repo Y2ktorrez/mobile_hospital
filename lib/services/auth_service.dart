@@ -26,7 +26,6 @@ class AuthService {
       } else {
         final errorData = jsonDecode(response.body);
         String errorMessage = errorData['message'] ?? 'Error del servidor';
-
         print("Error de login: $errorMessage");
         return errorMessage;
       }
@@ -44,7 +43,8 @@ class AuthService {
     return await _storage.read(key: 'auth_token');
   }
 
-  Future<String?> getUserNameFromToken() async {
+  // Función genérica para extraer datos del token
+  Future<String?> getDataFromToken(String key) async {
     String? token = await _storage.read(key: 'auth_token');
     if (token == null) return null;
 
@@ -58,23 +58,14 @@ class AuthService {
       utf8.decode(base64Url.decode(base64Url.normalize(parts[1]))),
     );
 
-    return payload['nombre'] ?? "User";
+    return payload[key];
+  }
+
+  Future<String?> getUserNameFromToken() async {
+    return await getDataFromToken('nombre');
   }
 
   Future<String?> getUserCarnetFromToken() async {
-    String? token = await _storage.read(key: 'auth_token');
-    if (token == null) return null;
-
-    final parts = token.split('.');
-    if (parts.length != 3) {
-      print("Token no es un JWT válido.");
-      return null;
-    }
-
-    final payload = jsonDecode(
-      utf8.decode(base64Url.decode(base64Url.normalize(parts[1]))),
-    );
-
-    return payload['ci']?.toString() ?? "Unknown ID"; // Convertimos CI a String
+    return await getDataFromToken('ci');
   }
 }

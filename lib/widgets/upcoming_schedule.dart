@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hospital/screens/ficha_screen.dart';
 import 'package:hospital/services/horario_medico_service.dart';
 
 class UpcomingSchedule extends StatefulWidget {
@@ -127,11 +128,13 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        // Acción al presionar el botón (puedes personalizarla)
-                        print("Botón 'Agregar Ficha' presionado para el horario: ${horario['dia']} ${horario['horaInicio']}");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CreateFichaScreen()),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF7165D6), // Mismo color que los botones de pestañas
+                        backgroundColor: Color(0xFF7165D6),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
