@@ -44,9 +44,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildTabButton("Horarios", 0),
-                  _buildTabButton("Citas", 1),
-                  _buildTabButton("Completadas", 2),
+                  _buildTabButton("Horario", 0),
+                  _buildTabButton("Ficha", 1),
+                  _buildTabButton("Pago", 2),
                 ],
               ),
             ),
