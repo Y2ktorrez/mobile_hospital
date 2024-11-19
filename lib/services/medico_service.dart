@@ -4,7 +4,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class MedicoService {
   final String baseUrl = 'http://192.168.0.15:2424/medico/getAll';
-  //final String baseUrl = 'http://ec2-18-118-8-106.us-east-2.compute.amazonaws.com/medico/getAll';
   final FlutterSecureStorage _storage = FlutterSecureStorage();
 
   Future<List<dynamic>> getAllMedicos() async {

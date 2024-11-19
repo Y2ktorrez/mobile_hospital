@@ -1,34 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:hospital/screens/welcome_screen.dart';
+import 'package:hospital/screens/login_screen.dart';
+import 'package:hospital/screens/pago_screen.dart';
 import 'package:hospital/services/auth_service.dart';
 
-class SettingScreen extends StatefulWidget {
-  @override
-  _SettingScreenState createState() => _SettingScreenState();
-}
-
-class _SettingScreenState extends State<SettingScreen> {
+class SettingScreen extends StatelessWidget {
   final AuthService _authService = AuthService();
-  final FlutterSecureStorage _storage = FlutterSecureStorage();
-  String userName = "Dear Programmer";
-  String userCarnet = "Unknown ID";
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUserData();
-  }
-
-  Future<void> _loadUserData() async {
-    String? name = await _authService.getUserNameFromToken();
-    String? carnet = await _authService.getUserCarnetFromToken();
-    setState(() {
-      userName = name ?? "Dear Programmer";
-      userCarnet = carnet ?? "Unknown ID";
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,21 +25,16 @@ class _SettingScreenState extends State<SettingScreen> {
           ListTile(
             leading: CircleAvatar(
               radius: 30,
-              backgroundColor: Colors.grey[200],
-              child: Icon(
-                Icons.person,
-                color: Colors.grey[700],
-                size: 30,
-              ),
+              backgroundImage: AssetImage("images/doctor1.jpg"),
             ),
             title: Text(
-              userName,
+              "Dear Programmer",
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 25,
               ),
             ),
-            subtitle: Text("CI: $userCarnet"),
+            subtitle: Text("Profile"),
           ),
           Divider(height: 50),
           ListTile(
@@ -113,8 +85,14 @@ class _SettingScreenState extends State<SettingScreen> {
             trailing: Icon(Icons.arrow_forward_ios_rounded),
           ),
           SizedBox(height: 20),
+          // ListTile de "Pagar" que navega hacia PagoScreen
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingScreen1()),
+              );
+            },
             leading: Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -122,13 +100,13 @@ class _SettingScreenState extends State<SettingScreen> {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                Icons.privacy_tip_outlined,
+                Icons.payment_outlined,
                 color: Colors.indigo,
                 size: 35,
               ),
             ),
             title: Text(
-              "Privacy",
+              "Pagar",
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 20,
@@ -190,8 +168,8 @@ class _SettingScreenState extends State<SettingScreen> {
               await _authService.logout();
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => WelcomeScreen()),
-                    (route) => false,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+                    (Route<dynamic> route) => false,
               );
             },
             leading: Container(

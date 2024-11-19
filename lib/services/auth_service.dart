@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 class AuthService {
   final _storage = FlutterSecureStorage();
   final String baseUrl = 'http://192.168.0.15:2424/login/paciente';
-  //final String baseUrl = 'http://ec2-18-118-8-106.us-east-2.compute.amazonaws.com/login/paciente';
 
   Future<String?> login(String email, String password) async {
     final url = Uri.parse(baseUrl);
