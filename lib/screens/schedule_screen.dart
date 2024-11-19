@@ -72,7 +72,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 children: [
                   _buildTabButton("Horario", 0),
                   _buildTabButton("Ficha", 1),
-                  _buildTabButton("Pago", 2),
+                  _buildTabButton("Historial", 2),
                 ],
               ),
             ),
