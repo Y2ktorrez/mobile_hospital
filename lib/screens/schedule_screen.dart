@@ -3,6 +3,7 @@ import 'package:hospital/models/historial_model.dart';
 import 'package:hospital/services/ficha_item_service.dart';
 import 'package:hospital/services/historial_service.dart';
 import 'package:hospital/widgets/fichaItem.dart';
+import 'package:hospital/widgets/save_pdf.dart';
 import 'package:hospital/widgets/upcoming_schedule.dart'; // Importa tu modelo de Historial
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
@@ -292,9 +293,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 }).toList(),
                 SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () => generatePdf(historial!),
+                  onPressed: () => savePdfToDownloads(context, historial!),  // Pasar el context aquí
                   child: Text('Generar PDF'),
-                ),
+                )
               ],
             ),
           )
